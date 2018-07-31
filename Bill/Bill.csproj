@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="src\Proxies\Entities\test.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -24,6 +28,15 @@
     <Content Update="package-lock.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="src\Proxies\Entities\testDto.ts">
+      <CustomToolNamespace>Entities\testDto.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\Proxies\Services\Test.service.ts">
+      <CustomToolNamespace>Controllers\TestController.cs</CustomToolNamespace>
+    </None>
   </ItemGroup>
 
 </Project>

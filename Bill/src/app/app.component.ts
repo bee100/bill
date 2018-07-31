@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
 import { OnInit } from '@angular/core';
+import { TestDto } from '../Proxies/Entities/testDto';
+import { TestController } from '../Proxies/Services/Test.service';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +10,17 @@ import { OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-    apiValues: string[] = [];
+  apiValues: string[] = [];
+  test: TestDto = new TestDto("Loading");
 
-    constructor(private _service: Http) {
-        
-    }
+  constructor(
+    private _testService: TestController
+  ) { }
 
-    ngOnInit() {
-        this._service.get("/api/values").subscribe(result => {
-            this.apiValues = result.json() as string[];
-            
-        });
+  ngOnInit() {
+    this._testService.get().subscribe(result => {
+      this.apiValues = result;
+      this.apiValues.push("angulaar");
+      })
     }
 }
