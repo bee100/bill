@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Bill.Entities
 {
-    public class TestDto
+    public class PersonDto
     {
-        public string Name { get; set; }
+      public string Name { get; set; }
     }
 }

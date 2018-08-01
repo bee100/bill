@@ -10,15 +10,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 
-import { testDto } from '../Entities/testDto';
+import { PersonDto } from '../Entities/PersonDto';
 @Injectable()
 export class TestController {
     constructor(private _httpClient: HttpClient) { }        
     
     // get: /api/values      
-    get(): Observable<TestDto[]> {
+    get(): Observable<PersonDto[]> {
         var _Url = `/api/values`;
-            return this._httpClient.get<TestDto[]>(_Url);
+            return this._httpClient.get<PersonDto[]>(_Url);
     }
     
 }

@@ -23,28 +23,6 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
-/***/ "./src/Proxies/Entities/testDto.ts":
-/*!*****************************************!*\
-  !*** ./src/Proxies/Entities/testDto.ts ***!
-  \*****************************************/
-/*! exports provided: TestDto */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TestDto", function() { return TestDto; });
-// Generated item
-var TestDto = /** @class */ (function () {
-    function TestDto(name) {
-        this.name = name;
-    }
-    return TestDto;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/Proxies/Services/Test.service.ts":
 /*!**********************************************!*\
   !*** ./src/Proxies/Services/Test.service.ts ***!
@@ -112,7 +90,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Angular test</h1>\r\n\r\n<ul>\r\n  <li *ngFor=\"let value of apiValues\">{{value}}</li>\r\n</ul>\r\n<button class=\"ui primary button\">\r\n  Save\r\n</button>\r\n<button class=\"ui button\">\r\n  Discardc\r\n</button>\r\n\r\n{{test.name}}\r\n"
+module.exports = "<h1>Angular test</h1>\r\n\r\n<ul>\r\n  <li *ngFor=\"let value of apiValues\">{{value.name}}</li>\r\n</ul>\r\n<button class=\"ui primary button\">\r\n  Save\r\n</button>\r\n<button class=\"ui button\">\r\n  Discardc\r\n</button>\r\n"
 
 /***/ }),
 
@@ -127,8 +105,7 @@ module.exports = "<h1>Angular test</h1>\r\n\r\n<ul>\r\n  <li *ngFor=\"let value 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _Proxies_Entities_testDto__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Proxies/Entities/testDto */ "./src/Proxies/Entities/testDto.ts");
-/* harmony import */ var _Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Proxies/Services/Test.service */ "./src/Proxies/Services/Test.service.ts");
+/* harmony import */ var _Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Proxies/Services/Test.service */ "./src/Proxies/Services/Test.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -140,18 +117,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-
 var AppComponent = /** @class */ (function () {
     function AppComponent(_testService) {
         this._testService = _testService;
         this.apiValues = [];
-        this.test = new _Proxies_Entities_testDto__WEBPACK_IMPORTED_MODULE_1__["TestDto"]("Loading");
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._testService.get().subscribe(function (result) {
             _this.apiValues = result;
-            _this.apiValues.push("angulaar");
         });
     };
     AppComponent = __decorate([
@@ -160,7 +134,7 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [_Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_2__["TestController"]])
+        __metadata("design:paramtypes", [_Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_1__["TestController"]])
     ], AppComponent);
     return AppComponent;
 }());

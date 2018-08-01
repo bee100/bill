@@ -1,5 +1,5 @@
 ﻿ // Generated item
-    export class TestDto {  
+    export class PersonDto {  
         constructor(public Name: string) {  
         }  
     }  

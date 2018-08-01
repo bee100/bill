@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { TestDto } from '../Proxies/Entities/testDto';
 import { TestController } from '../Proxies/Services/Test.service';
+import { PersonDto } from '../Proxies/Entities/PersonDto';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,7 @@ import { TestController } from '../Proxies/Services/Test.service';
 })
 export class AppComponent implements OnInit {
 
-  apiValues: string[] = [];
-  test: TestDto = new TestDto("Loading");
+  apiValues: PersonDto[] = [];
 
   constructor(
     private _testService: TestController
@@ -19,8 +18,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this._testService.get().subscribe(result => {
-      this.apiValues = result;
-      this.apiValues.push("angulaar");
+          this.apiValues = result;
       })
     }
 }

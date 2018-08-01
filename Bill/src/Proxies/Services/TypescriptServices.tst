@@ -34,6 +34,8 @@ ${
     // top of the service
     string ImportsList(Class objClass)
     {
+        List<Type> types = new List<Type>();
+
         var ImportsOutput = "";
         // Get the methods in the Class
         var objMethods = objClass.Methods;
@@ -45,16 +47,21 @@ ${
             {
                 // If the Paramater is not prmitive we need to add this to the Imports
                 if(!objParameter.Type.IsPrimitive){
-                    ImportsOutput = objParameter.Name;
+                    types.Add(objParameter.Type);
                 }
             }
             if(!objMethod.Type.IsPrimitive)
             {
-              ImportsOutput = objMethod.Type.name;
+              types.Add(objMethod.Type);
             }
         }
+
+        foreach(var type in types)
+        {
+          ImportsOutput += $"import {{ { type.Name.Split('[')[0]} }} from '../Entities/{type.Name.Split('[')[0]}';";
+        }
         // Notice: As of now this will only return one import
-        return  $"import {{ { ImportsOutput } }} from '../Entities/{ImportsOutput}';";
+        return  ImportsOutput;
     }
     // Format the method based on the return type
     string MethodFormat(Method objMethod)

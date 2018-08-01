@@ -10,18 +10,18 @@ namespace Bill.Controllers
     public class TestController : Controller
     {
         [HttpGet("/api/values")] 
-        public List<TestDto> Get()
+        public List<PersonDto> Get()
         {
           return getTestDtos();
         }
 
-        private List<TestDto> getTestDtos()
+        private List<PersonDto> getTestDtos()
         {
-            TestDto[] names = new TestDto[3];
+            PersonDto[] names = new PersonDto[3];
 
-            names[0] = new TestDto();
-            names[1] = new TestDto();
-            names[2] = new TestDto();
+            names[0] = new PersonDto();
+            names[1] = new PersonDto();
+            names[2] = new PersonDto();
 
             names[0].Name = "frank";
             names[1].Name = "robin";
