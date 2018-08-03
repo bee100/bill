@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Bill.Database;
+using Bill.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -20,6 +22,11 @@ namespace Bill
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("Data Source=.\\SQLEXPRESS; Initial Catalog = bill; Integrated Security = True;User Id=bill;Password=bill; MultipleActiveResultSets = True"));
+
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
             services.AddMvc();
 
             services.AddSwaggerGen(c =>
@@ -55,6 +62,7 @@ namespace Bill
                 }
             });
 
+            app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
             app.UseDefaultFiles();
             app.UseStaticFiles();

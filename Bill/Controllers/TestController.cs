@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bill.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bill.Controllers
 {
     public class TestController : Controller
     {
+        [Authorize]
         [HttpGet("/api/values")] 
         public List<PersonDto> Get()
         {
