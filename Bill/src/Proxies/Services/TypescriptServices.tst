@@ -16,14 +16,7 @@ ${
     {
         if(objMethod.Type.Name == "IActionResult")
         {
-                if((objMethod.Parameters.Where(x => !x.Type.IsPrimitive).FirstOrDefault() != null))
-                {
-                    return objMethod.Parameters.Where(x => !x.Type.IsPrimitive).FirstOrDefault().Name;
-                }
-                else
-                {
-                    return "void";
-                }
+                return "void";
         } 
         else
         {
@@ -50,7 +43,7 @@ ${
                     types.Add(objParameter.Type);
                 }
             }
-            if(!objMethod.Type.IsPrimitive)
+            if(!objMethod.Type.IsPrimitive && !(objMethod.Type.name == "void" || objMethod.Type.Name == "IActionResult"))
             {
               types.Add(objMethod.Type);
             }
@@ -71,7 +64,12 @@ ${
         } 
         
         if(objMethod.HttpMethod() == "post"){
-            return  $"(_Url, {objMethod.Parameters[0].name})";
+            string parameterName = "test";
+            if(objMethod.Parameters.Count() > 0)
+            {
+              parameterName = objMethod.Parameters[0].name;
+            }
+            return  $"<{ReturnType(objMethod)}>(_Url," + parameterName + ")";
         }
         if(objMethod.HttpMethod() == "put"){
             return  $"(_Url, {objMethod.Parameters[1].name})";

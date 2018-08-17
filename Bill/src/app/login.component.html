@@ -1,0 +1,19 @@
+<div class="ui stackable three column grid " style="height:100%;">
+  <div class="column"></div>
+  <div class="ui column middle aligned segment">
+    <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="field">
+        <label>Gebruikersnaam</label>
+        <input type="text" class="form-control" name="username" formControlName="username" placeholder="Gebruikersnaam">
+      </div>
+      <div class="field">
+        <label>Wachtwoord</label>
+        <input type="password"  class="form-control"  name="password" formControlName="password" placeholder="Wachtwoord">
+      </div>
+      <p class="ui red" *ngIf="error" style="color:red;">{{error}}</p>
+      <button class="ui button right floated" type="submit" [disabled]="!loginForm.valid">Inloggen</button>
+    </form>
+    <a (click)="createAccount()">Maak account</a>
+  </div>
+  <div class="column"></div>
+</div>

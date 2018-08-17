@@ -13,7 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="src\app\login.component.ts" />
+    <None Remove="src\app\overview.component.ts" />
     <None Remove="src\Proxies\Entities\test.ts" />
+    <None Remove="src\shared\services\authGuardService.ts" />
+    <None Remove="src\shared\services\AuthService.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,8 +26,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\login.component.ts" />
+    <TypeScriptCompile Include="src\app\overview.component.ts" />
+    <TypeScriptCompile Include="src\shared\services\authGuardService.ts" />
+    <TypeScriptCompile Include="src\shared\services\authService.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +47,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="src\Proxies\Entities\LoginCredentialsDto.ts">
+      <CustomToolNamespace>Model\Authentication\Dto\LoginCredentialsDto.cs</CustomToolNamespace>
+    </None>
     <None Update="src\Proxies\Entities\PersonDto.ts">
-      <CustomToolNamespace>Entities\PersonDto.cs</CustomToolNamespace>
+      <CustomToolNamespace>Model\Entities\Dto\PersonDto.cs</CustomToolNamespace>
     </None>
     <None Update="src\Proxies\Services\Test.service.ts">
       <CustomToolNamespace>Controllers\TestController.cs</CustomToolNamespace>

@@ -10,15 +10,10 @@ import { PersonDto } from '../Proxies/Entities/PersonDto';
 })
 export class AppComponent implements OnInit {
 
-  apiValues: PersonDto[] = [];
-
   constructor(
     private _testService: TestController
   ) { }
 
   ngOnInit() {
-    this._testService.get().subscribe(result => {
-          this.apiValues = result;
-      })
-    }
+  }
 }

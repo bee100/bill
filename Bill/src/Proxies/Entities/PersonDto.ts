@@ -1,6 +1,7 @@
-﻿ // Generated item
-    export class PersonDto {  
-        constructor(public Name: string) {  
-        }  
+ // Generated item
+    export class PersonDto {
+        
+        public name: string;
+        
     }  
 

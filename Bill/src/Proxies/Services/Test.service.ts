@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 
-import { PersonDto } from '../Entities/PersonDto';
+import { PersonDto } from '../Entities/PersonDto';import { LoginCredentialsDto } from '../Entities/LoginCredentialsDto';
 @Injectable()
 export class TestController {
     constructor(private _httpClient: HttpClient) { }        
@@ -19,6 +19,18 @@ export class TestController {
     get(): Observable<PersonDto[]> {
         var _Url = `/api/values`;
             return this._httpClient.get<PersonDto[]>(_Url);
+    }
+    
+    // post: /api/account?userName=${encodeURIComponent(userName)}      
+    create(userName: string): Observable<void> {
+        var _Url = `/api/account?userName=${encodeURIComponent(userName)}`;
+            return this._httpClient.post<void>(_Url,userName);
+    }
+    
+    // post: /api/login      
+    login(credentials: LoginCredentialsDto): Observable<void> {
+        var _Url = `/api/login`;
+            return this._httpClient.post<void>(_Url,credentials);
     }
     
 }
