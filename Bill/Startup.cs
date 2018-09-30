@@ -21,9 +21,6 @@ namespace Bill
 {
     public class Startup
     {
-      private const string SecretKey = "yVn7LajtZQ+c22xige+tJBIvt/ypwvAhlPznDDS6d9lmO9PdjgBYuYo34EGCmrLRSMHOIR8CKI7VLuNLl8sQ14ZOaOKwsRc+yi+D2VbElBWEM+PvMcXGQTJbtiwH5Iw5kHNdhgEBf2knkt7CsMUNMkREP9G+Of0ObU9onC6Fb2Q4G5+7jPhGCyFhFhE0VjKIpjf26BucWMWJu5K8UNO5S3P44kvUFxbU8Yt9T9/mBGEiRVSeW+UcNKOKIgGPlRG4hrVYHt2BPANcr7AJ/ilxOWhfnmyqPrtt2OnT6Y49UUd/9pzLynkSSsCXJ4PRAA37xTSoQ3Jt9+YUII1++nCHgQ==";
-
-      private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
       // This method gets called by the runtime. Use this method to add services to the container.
       // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -37,7 +34,7 @@ namespace Bill
             {
               options.Issuer = "Bill";
               options.Audience = "http://localhost:58562/";
-              options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+              options.SigningCredentials = new SigningCredentials(AppSettings._signingKey, SecurityAlgorithms.HmacSha256);
             });
 
              services.AddIdentity<User, IdentityRole>(options =>
@@ -58,24 +55,22 @@ namespace Bill
                 c.SwaggerDoc("v1", new Info { Title = "Bill API", Version = "v1"});
             });
 
-            services.AddAuthentication().AddJwtBearer(options =>
+            services.AddAuthentication(options => {
+              options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+              options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+              options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+              options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
             {
+              options.RequireHttpsMetadata = false;
+              options.SaveToken = true;
               options.TokenValidationParameters = new TokenValidationParameters
               {
-                ValidateIssuer = true,
-                ValidIssuer = "Bill",
-
-                ValidateAudience = true,
-                ValidAudience = "http://localhost:58562/",
-
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = _signingKey,
-
-                RequireExpirationTime = false,
-                ValidateLifetime = false,
-                ClockSkew = TimeSpan.Zero
+                ValidIssuer = AppSettings.Issuer,
+                ValidAudience = AppSettings.Issuer,
+                IssuerSigningKey = AppSettings._signingKey,
               };
-              options.Audience = "http://localhost:58562/";
+              options.Audience = AppSettings.Url;
             });
     }
 
@@ -106,7 +101,7 @@ namespace Bill
             });
 
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
         }

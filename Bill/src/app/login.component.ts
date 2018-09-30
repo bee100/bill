@@ -30,9 +30,11 @@ export class LoginComponent implements OnInit {
     credentials.password = this.loginForm.controls['password'].value;
 
     this._testService.login(credentials).subscribe(result => {
-      console.log(result);
+      this.error = null;
+      localStorage.setItem('token', result["token"]);
     }, error => {
-      this.error  = error.error;
+      console.log(error);
+      this.error = error.error;
     });
   }
 

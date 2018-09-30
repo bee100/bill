@@ -18,6 +18,7 @@
     <None Remove="src\Proxies\Entities\test.ts" />
     <None Remove="src\shared\services\authGuardService.ts" />
     <None Remove="src\shared\services\AuthService.ts" />
+    <None Remove="src\shared\token.interceptor.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +39,7 @@
     <TypeScriptCompile Include="src\app\overview.component.ts" />
     <TypeScriptCompile Include="src\shared\services\authGuardService.ts" />
     <TypeScriptCompile Include="src\shared\services\authService.ts" />
+    <TypeScriptCompile Include="src\shared\token.interceptor.ts" />
   </ItemGroup>
 
   <ItemGroup>

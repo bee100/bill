@@ -237,12 +237,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_authGuardService__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../shared/services/authGuardService */ "./src/shared/services/authGuardService.ts");
 /* harmony import */ var _shared_services_authService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../shared/services/authService */ "./src/shared/services/authService.ts");
 /* harmony import */ var _auth0_angular_jwt_src_jwthelper_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @auth0/angular-jwt/src/jwthelper.service */ "./node_modules/@auth0/angular-jwt/src/jwthelper.service.js");
+/* harmony import */ var _shared_token_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../shared/token.interceptor */ "./src/shared/token.interceptor.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -276,7 +278,12 @@ var AppModule = /** @class */ (function () {
                 _Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_5__["TestController"],
                 _shared_services_authGuardService__WEBPACK_IMPORTED_MODULE_9__["AuthGuardService"],
                 _shared_services_authService__WEBPACK_IMPORTED_MODULE_10__["AuthService"],
-                _auth0_angular_jwt_src_jwthelper_service__WEBPACK_IMPORTED_MODULE_11__["JwtHelperService"]
+                _auth0_angular_jwt_src_jwthelper_service__WEBPACK_IMPORTED_MODULE_11__["JwtHelperService"],
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HTTP_INTERCEPTORS"],
+                    useClass: _shared_token_interceptor__WEBPACK_IMPORTED_MODULE_12__["TokenInterceptor"],
+                    multi: true
+                }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
@@ -342,8 +349,10 @@ var LoginComponent = /** @class */ (function () {
         credentials.username = this.loginForm.controls['username'].value;
         credentials.password = this.loginForm.controls['password'].value;
         this._testService.login(credentials).subscribe(function (result) {
-            console.log(result);
+            _this.error = null;
+            localStorage.setItem('token', result["token"]);
         }, function (error) {
+            console.log(error);
             _this.error = error.error;
         });
     };
@@ -372,7 +381,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Achievement get!</h1>\r\n"
+module.exports = "<h1>Achievement get!</h1>\r\n<button (click)=\"getValues()\"></button>\r\n"
 
 /***/ }),
 
@@ -387,6 +396,7 @@ module.exports = "<h1>Achievement get!</h1>\r\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OverviewComponent", function() { return OverviewComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/Proxies/Services/Test.service */ "./src/Proxies/Services/Test.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -397,17 +407,24 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var OverviewComponent = /** @class */ (function () {
-    function OverviewComponent() {
+    function OverviewComponent(_testService) {
+        this._testService = _testService;
     }
     OverviewComponent.prototype.ngOnInit = function () {
         console.log("overview");
+    };
+    OverviewComponent.prototype.getValues = function () {
+        this._testService.get().subscribe(function (result) {
+            console.log(result);
+        });
     };
     OverviewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./overview.component.html */ "./src/app/overview.component.html"),
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_1__["TestController"]])
     ], OverviewComponent);
     return OverviewComponent;
 }());
@@ -556,6 +573,49 @@ var AuthService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], AuthService);
     return AuthService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/shared/token.interceptor.ts":
+/*!*****************************************!*\
+  !*** ./src/shared/token.interceptor.ts ***!
+  \*****************************************/
+/*! exports provided: TokenInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokenInterceptor", function() { return TokenInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var TokenInterceptor = /** @class */ (function () {
+    function TokenInterceptor() {
+    }
+    TokenInterceptor.prototype.intercept = function (request, next) {
+        request = request.clone({
+            setHeaders: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+        return next.handle(request);
+    };
+    TokenInterceptor = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], TokenInterceptor);
+    return TokenInterceptor;
 }());
 
 

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import { OverviewComponent } from './overview.component';
 import { AuthGuardService } from '../shared/services/authGuardService';
 import { AuthService } from '../shared/services/authService';
 import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
+import { TokenInterceptor } from '../shared/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,12 @@ import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
     TestController,
     AuthGuardService,
     AuthService,
-    JwtHelperService
+    JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
