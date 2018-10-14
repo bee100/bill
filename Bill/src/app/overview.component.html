@@ -1,2 +1,5 @@
-<h1>Achievement get!</h1>
-<button (click)="getValues()"></button>
+<h1>Achievement gest!</h1>
+<button class="ui positive button active" (click)="getValues()">Get Values</button>
+<div *ngFor="let value of values">
+  <p>{{value.name}}</p>
+</div>

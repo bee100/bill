@@ -118,6 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./login.component */ "./src/app/login.component.ts");
 /* harmony import */ var _overview_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./overview.component */ "./src/app/overview.component.ts");
 /* harmony import */ var _shared_services_authGuardService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/services/authGuardService */ "./src/shared/services/authGuardService.ts");
+/* harmony import */ var _main_layout_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./main.layout.component */ "./src/app/main.layout.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -129,9 +130,21 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
-    { path: 'account/login', component: _login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
-    { path: '', component: _overview_component__WEBPACK_IMPORTED_MODULE_3__["OverviewComponent"], canActivate: [_shared_services_authGuardService__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] }
+    {
+        path: '',
+        component: _main_layout_component__WEBPACK_IMPORTED_MODULE_5__["MainLayoutComponent"],
+        canActivate: [_shared_services_authGuardService__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]],
+        children: [
+            { path: '', component: _overview_component__WEBPACK_IMPORTED_MODULE_3__["OverviewComponent"], pathMatch: 'full' }
+        ]
+    },
+    //no layout routes
+    {
+        path: 'account/login',
+        component: _login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"]
+    },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -238,12 +251,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_authService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../shared/services/authService */ "./src/shared/services/authService.ts");
 /* harmony import */ var _auth0_angular_jwt_src_jwthelper_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @auth0/angular-jwt/src/jwthelper.service */ "./node_modules/@auth0/angular-jwt/src/jwthelper.service.js");
 /* harmony import */ var _shared_token_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../shared/token.interceptor */ "./src/shared/token.interceptor.ts");
+/* harmony import */ var _main_layout_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./main.layout.component */ "./src/app/main.layout.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -265,7 +280,8 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
                 _login_component__WEBPACK_IMPORTED_MODULE_7__["LoginComponent"],
-                _overview_component__WEBPACK_IMPORTED_MODULE_8__["OverviewComponent"]
+                _overview_component__WEBPACK_IMPORTED_MODULE_8__["OverviewComponent"],
+                _main_layout_component__WEBPACK_IMPORTED_MODULE_13__["MainLayoutComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -374,6 +390,58 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/main.layout.component.html":
+/*!********************************************!*\
+  !*** ./src/app/main.layout.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ui secondary pointing menu\">\r\n  <a class=\"item\">\r\n    Home\r\n  </a>\r\n  <a class=\"item\">\r\n    Messages\r\n  </a>\r\n  <a class=\"item active\">\r\n    Friends\r\n  </a>\r\n  <div class=\"right menu\">\r\n    <a class=\"ui item\">\r\n      Logout\r\n    </a>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/main.layout.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/main.layout.component.ts ***!
+  \******************************************/
+/*! exports provided: MainLayoutComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainLayoutComponent", function() { return MainLayoutComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var MainLayoutComponent = /** @class */ (function () {
+    function MainLayoutComponent() {
+    }
+    MainLayoutComponent.prototype.ngOnInit = function () {
+        console.log("main layout");
+    };
+    MainLayoutComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            template: __webpack_require__(/*! ./main.layout.component.html */ "./src/app/main.layout.component.html"),
+            selector: 'main-layout'
+        }),
+        __metadata("design:paramtypes", [])
+    ], MainLayoutComponent);
+    return MainLayoutComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/overview.component.html":
 /*!*****************************************!*\
   !*** ./src/app/overview.component.html ***!
@@ -381,7 +449,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Achievement get!</h1>\r\n<button (click)=\"getValues()\"></button>\r\n"
+module.exports = "<h1>Achievement gest!</h1>\r\n<button class=\"ui positive button active\" (click)=\"getValues()\">Get Values</button>\r\n<div *ngFor=\"let value of values\">\r\n  <p>{{value.name}}</p>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -416,8 +484,9 @@ var OverviewComponent = /** @class */ (function () {
         console.log("overview");
     };
     OverviewComponent.prototype.getValues = function () {
+        var _this = this;
         this._testService.get().subscribe(function (result) {
-            console.log(result);
+            _this.values = result;
         });
     };
     OverviewComponent = __decorate([

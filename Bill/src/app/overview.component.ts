@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { TestController } from 'src/Proxies/Services/Test.service';
+import { PersonDto } from '../Proxies/Entities/PersonDto';
 
 @Component({
   templateUrl: './overview.component.html',
 })
 export class OverviewComponent implements OnInit {
+
+  private values: PersonDto[];
 
   constructor(
    private _testService: TestController
@@ -17,7 +20,7 @@ export class OverviewComponent implements OnInit {
 
   getValues() {
     this._testService.get().subscribe(result => {
-      console.log(result);
+      this.values = result;
     })
   }
 }

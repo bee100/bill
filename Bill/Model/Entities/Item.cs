@@ -13,5 +13,6 @@ namespace Bill.Entities
         public string Name { get; set; }
         [Required]
         public double Price { get; set;}
+      
     }
 }

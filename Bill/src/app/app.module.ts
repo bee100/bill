@@ -12,12 +12,14 @@ import { AuthGuardService } from '../shared/services/authGuardService';
 import { AuthService } from '../shared/services/authService';
 import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
 import { TokenInterceptor } from '../shared/token.interceptor';
+import { MainLayoutComponent } from './main.layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    OverviewComponent
+    OverviewComponent,
+    MainLayoutComponent
   ],
   imports: [
       BrowserModule,

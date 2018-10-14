@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <None Remove="src\app\login.component.ts" />
+    <None Remove="src\app\main.layout.component.ts" />
     <None Remove="src\app\overview.component.ts" />
     <None Remove="src\Proxies\Entities\test.ts" />
     <None Remove="src\shared\services\authGuardService.ts" />
@@ -36,6 +37,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="src\app\login.component.ts" />
+    <TypeScriptCompile Include="src\app\main.layout.component.ts" />
     <TypeScriptCompile Include="src\app\overview.component.ts" />
     <TypeScriptCompile Include="src\shared\services\authGuardService.ts" />
     <TypeScriptCompile Include="src\shared\services\authService.ts" />
