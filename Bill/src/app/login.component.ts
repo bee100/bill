@@ -4,6 +4,8 @@ import { TestController } from '../Proxies/Services/Test.service';
 import { PersonDto } from '../Proxies/Entities/PersonDto';
 import { LoginCredentialsDto } from '../Proxies/Entities/LoginCredentialsDto';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/authService';
 
 @Component({
   templateUrl: './login.component.html',
@@ -14,10 +16,15 @@ export class LoginComponent implements OnInit {
   error: string;
 
   constructor(
-    private _testService: TestController
+    private _testService: TestController,
+    public router: Router,
+    public auth: AuthService
   ) { }
 
   ngOnInit() {
+    if (this.auth.isAuthenticated) {
+      this.router.navigate(['/']);
+    }
     this.loginForm = new FormGroup({
       username: new FormControl("", Validators.required),
       password: new FormControl("", Validators.required),
@@ -32,6 +39,7 @@ export class LoginComponent implements OnInit {
     this._testService.login(credentials).subscribe(result => {
       this.error = null;
       localStorage.setItem('token', result["token"]);
+      this.router.navigate(['']);
     }, error => {
       console.log(error);
       this.error = error.error;

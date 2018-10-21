@@ -336,6 +336,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Proxies/Services/Test.service */ "./src/Proxies/Services/Test.service.ts");
 /* harmony import */ var _Proxies_Entities_LoginCredentialsDto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Proxies/Entities/LoginCredentialsDto */ "./src/Proxies/Entities/LoginCredentialsDto.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _shared_services_authService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/services/authService */ "./src/shared/services/authService.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -349,11 +351,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(_testService) {
+    function LoginComponent(_testService, router, auth) {
         this._testService = _testService;
+        this.router = router;
+        this.auth = auth;
     }
     LoginComponent.prototype.ngOnInit = function () {
+        if (this.auth.isAuthenticated) {
+            this.router.navigate(['/']);
+        }
         this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
             username: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
@@ -367,6 +376,7 @@ var LoginComponent = /** @class */ (function () {
         this._testService.login(credentials).subscribe(function (result) {
             _this.error = null;
             localStorage.setItem('token', result["token"]);
+            _this.router.navigate(['']);
         }, function (error) {
             console.log(error);
             _this.error = error.error;
@@ -381,7 +391,9 @@ var LoginComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/login.component.html"),
         }),
-        __metadata("design:paramtypes", [_Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_1__["TestController"]])
+        __metadata("design:paramtypes", [_Proxies_Services_Test_service__WEBPACK_IMPORTED_MODULE_1__["TestController"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _shared_services_authService__WEBPACK_IMPORTED_MODULE_5__["AuthService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -397,7 +409,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ui secondary pointing menu\">\r\n  <a class=\"item\">\r\n    Home\r\n  </a>\r\n  <a class=\"item\">\r\n    Messages\r\n  </a>\r\n  <a class=\"item active\">\r\n    Friends\r\n  </a>\r\n  <div class=\"right menu\">\r\n    <a class=\"ui item\">\r\n      Logout\r\n    </a>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>\r\n"
+module.exports = "<div class=\"ui secondary pointing menu\">\r\n  <a class=\"item\">\r\n    Home\r\n  </a>\r\n  <a class=\"item\">\r\n    Messages\r\n  </a>\r\n  <a class=\"item\">\r\n    Friends\r\n  </a>\r\n  <div class=\"right menu\">\r\n    <a class=\"ui item\" (click)=\"logout()\">\r\n      Logout\r\n    </a>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -426,7 +438,10 @@ var MainLayoutComponent = /** @class */ (function () {
     function MainLayoutComponent() {
     }
     MainLayoutComponent.prototype.ngOnInit = function () {
-        console.log("main layout");
+    };
+    MainLayoutComponent.prototype.logout = function () {
+        localStorage.removeItem('token');
+        window.location.reload();
     };
     MainLayoutComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

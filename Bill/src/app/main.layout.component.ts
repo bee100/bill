@@ -10,7 +10,10 @@ export class MainLayoutComponent implements OnInit {
   constructor( ) { }
 
   ngOnInit() {
-    console.log("main layout");
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
 }
