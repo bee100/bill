@@ -13,6 +13,7 @@ import { AuthService } from '../shared/services/authService';
 import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
 import { TokenInterceptor } from '../shared/token.interceptor';
 import { MainLayoutComponent } from './main.layout.component';
+import { AccountController } from '../Proxies/Services/Account.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MainLayoutComponent } from './main.layout.component';
   ],
   providers: [
     TestController,
+    AccountController,
     AuthGuardService,
     AuthService,
     JwtHelperService,

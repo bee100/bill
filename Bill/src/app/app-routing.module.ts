@@ -12,7 +12,9 @@ const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: OverviewComponent, pathMatch: 'full' }
+      { path: '', component: OverviewComponent, pathMatch: 'full' },
+      { path: 'friends', component: OverviewComponent, pathMatch: 'full' },
+      { path: 'messages', component: OverviewComponent, pathMatch: 'full' }
     ]
   },
 

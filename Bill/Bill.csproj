@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
@@ -56,6 +56,9 @@
     </None>
     <None Update="src\Proxies\Entities\PersonDto.ts">
       <CustomToolNamespace>Model\Entities\Dto\PersonDto.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\Proxies\Services\Account.service.ts">
+      <CustomToolNamespace>Controllers\AccountController.cs</CustomToolNamespace>
     </None>
     <None Update="src\Proxies\Services\Test.service.ts">
       <CustomToolNamespace>Controllers\TestController.cs</CustomToolNamespace>

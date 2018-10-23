@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { AccountController } from '../Proxies/Services/Account.service';
 
 @Component({
   templateUrl: './main.layout.component.html',
@@ -7,9 +8,12 @@ import { OnInit } from '@angular/core';
 })
 export class MainLayoutComponent implements OnInit {
 
-  constructor( ) { }
+  constructor(private _accountService: AccountController, ) { }
 
   ngOnInit() {
+    this._accountService.get().subscribe(result => {
+      console.log(result);
+    });
   }
 
   logout() {

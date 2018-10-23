@@ -69,6 +69,7 @@ namespace Bill
                 ValidIssuer = AppSettings.Issuer,
                 ValidAudience = AppSettings.Issuer,
                 IssuerSigningKey = AppSettings._signingKey,
+                NameClaimType = "name"
               };
               options.Audience = AppSettings.Url;
             });
